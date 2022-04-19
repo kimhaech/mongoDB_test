@@ -1,8 +1,11 @@
 from encodings import utf_8
 from urllib import response
-import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+import time
 import re
 import datetime
+import requests
 from bs4 import BeautifulSoup
 
 from genericpath import exists
@@ -24,13 +27,32 @@ testcol = db.ctestdata
 for d in testcol.find():
   print(d)
 
-url = 'https://www.spglobal.com/spdji/en/index-family/digital-assets/cryptocurrency/headline/#overview'
-resp = requests.get(url)
-plain_txt = resp.content
-sc = plain_txt.decode('cp1252').encode('utf8')
-soup =  BeautifulSoup(sc, 'html.parser')
 
-print(soup)
+# s = Service('C:/Users/epicl/Documents/chdr/chromedriver.exe')
+# driver = webdriver.Chrome(service=s)
+driver = webdriver.Chrome('C:/Users/epicl/Documents/chdr/chromedriver.exe')
+url = url = 'https://www.spglobal.com/spdji/en/indices/digital-assets/sp-cryptocurrency-largecap-ex-megacap-index/#overview'
+driver.get(url)
+time.sleep(3)
+
+# plc = driver.find_element_by_class_name(
+#     "highcharts-crosshair highcharts-crosshair-thin undefined")
+# action = webdriver.ActionChains(driver).move_to_element(plc)
+# action.perform()
+# test_text = driver.find_element_by_class_name("index-value")
+# print(test_text.text)
+test_text = driver.find_element_by_class_name("tabs-btn-link")
+t = test_text.text
+print(t)
+
+# -----------------------------------------
+# url = 'https://www.spglobal.com/spdji/en/index-family/digital-assets/cryptocurrency/headline/#overview'
+# resp = requests.get(url)
+# plain_txt = resp.content
+# sc = plain_txt.decode('cp1252').encode('utf8')
+# soup =  BeautifulSoup(sc, 'html.parser')
+
+# print(soup)
 
 
 
