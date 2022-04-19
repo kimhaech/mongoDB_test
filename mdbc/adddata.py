@@ -1,4 +1,6 @@
 from encodings import utf_8
+from operator import index
+from turtle import title
 from urllib import response
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -14,7 +16,7 @@ from pymongo import MongoClient
 # 로컬 호스트 클라이언트 불러오기
 client = MongoClient("mongodb://localhost:27017/")
 
-# 로컬의 testdb라는 이름의 데이터베이스 접속
+# 로컬의 testdb라는 이름의 데이터베이스
 db = client['testdb']
 
 # db 목록 출력
@@ -31,31 +33,32 @@ for d in testcol.find():
 # s = Service('C:/Users/epicl/Documents/chdr/chromedriver.exe')
 # driver = webdriver.Chrome(service=s)
 driver = webdriver.Chrome('C:/Users/epicl/Documents/chdr/chromedriver.exe')
-url = url = 'https://www.spglobal.com/spdji/en/indices/digital-assets/sp-cryptocurrency-largecap-ex-megacap-index/#overview'
+url = 'https://coinmarketcap.com/currencies/ethereum-classic/historical-data/'
 driver.get(url)
-time.sleep(3)
+html = driver.page_source
+soup = BeautifulSoup(html, 'lxml')
 
-# plc = driver.find_element_by_class_name(
-#     "highcharts-crosshair highcharts-crosshair-thin undefined")
-# action = webdriver.ActionChains(driver).move_to_element(plc)
-# action.perform()
-# test_text = driver.find_element_by_class_name("index-value")
-# print(test_text.text)
-test_text = driver.find_element_by_class_name("tabs-btn-link")
-t = test_text.text
-print(t)
+trs = soup.select('tr > td')
 
-# -----------------------------------------
-# url = 'https://www.spglobal.com/spdji/en/index-family/digital-assets/cryptocurrency/headline/#overview'
-# resp = requests.get(url)
-# plain_txt = resp.content
-# sc = plain_txt.decode('cp1252').encode('utf8')
-# soup =  BeautifulSoup(sc, 'html.parser')
+info = dict()
+# info['title'] = 'ethereum-classic'
+cat = ['date', 'open', 'high', 'low', 'close', 'vol', 'marcket cap']
+# 7개 - 날짜, open, high, low, close, vol, marcket cap
 
-# print(soup)
-
-
-
+tn = 0
+for i in trs:
+  index = tn%7
+  if tn != 0 and index == 0:
+    # 제작한 딕셔너리 넣기
+    temp['_id'] = tn//7
+    testcol.insert_one(temp)
+  else:
+    if index == 0:  # 새로운 딕셔너리 생성
+      temp = dict()
+      temp[cat[index]] = i.string
+    else:
+      temp[cat[index]] = i.string
+  tn += 1
 
 # -------------------------------------------------------------------------------------------
 # data = {
