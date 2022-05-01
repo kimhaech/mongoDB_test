@@ -19,7 +19,7 @@ path = 'C:/Users/epicl/Documents/GitHub/mongoDB_test/config'
 file_name = 'ethereum-classic.csv'
 
 i = 0
-posts = testcol.find()
+posts = testcol.find()  # DB에서 가져오기
 
 with open(os.path.join(path, file_name), 'w', newline='', encoding='utf-8-sig') as output:
   csvout = csv.DictWriter(output, ['date', 'open', 'high', 'low', 'close', 'vol', 'marcket cap'])
