@@ -1,3 +1,6 @@
+import os
+import csv
+from requests import post
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -52,24 +55,61 @@ trs = soup.select('tr > td')
 # time.sleep(3)
 
 
-info = list()
+# info = list()
 cat = ['date', 'open', 'high', 'low', 'close', 'vol', 'marcket cap']
 # 7개 - date, open, high, low, close, vol, marcket cap
 
-tn = 0
-for i in trs:
-  if tn%7 == 0:
-    if tn == 0: # 첫 값
-      temp = dict()
-    elif temp['date'] != i.string:
-      info.append(temp)
-      temp = dict()
-    temp[cat[0]] = i.string
-  else:
-    temp[cat[tn%7]] = i.string
-  tn += 1
+# 파일 저장 경로, 파일 이름
+path = 'C:/Users/epicl/Documents/GitHub/mongoDB_test/config'
+file_name = f'{title}.csv'
 
-for i in info:
-  print(i)
+# 설정한 경로에 csv file export
+with open(os.path.join(path, file_name), 'w', newline='', encoding='utf-8-sig') as output:
+  csvout = csv.DictWriter(output, ['date', 'open', 'high', 'low', 'close', 'vol', 'marcket cap'])
+  csvout.writeheader()
+  tn = 0
+  for i in trs:
+    if tn%7 == 0:
+      if tn == 0: # 첫 값
+        temp = dict()
+      elif temp['date'] != i.string:
+        wr = csv.writer(output)
+        wr.writerow(
+          [
+            temp['date'],
+            temp['open'],
+            temp['high'],
+            temp['low'],
+            temp['close'],
+            temp['vol'],
+            temp['marcket cap']
+          ])
+        temp = dict()
+        print(f"{tn} push")
+      temp[cat[0]] = i.string
+    else:
+      temp[cat[tn%7]] = i.string
+    tn += 1
 
+
+
+print('finish export!');
+
+# tn = 0
+# for i in trs:
+#   if tn%7 == 0:
+#     if tn == 0: # 첫 값
+#       temp = dict()
+#     elif temp['date'] != i.string:
+#       info.append(temp)
+#       temp = dict()
+#     temp[cat[0]] = i.string
+#   else:
+#     temp[cat[tn%7]] = i.string
+#   tn += 1
+
+# for i in info:
+#   print(i)
+
+# 작업 완료 후 driver 종료
 driver.quit()
