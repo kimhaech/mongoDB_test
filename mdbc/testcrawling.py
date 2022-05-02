@@ -1,3 +1,4 @@
+from operator import index
 import os
 import csv
 from requests import post
@@ -8,6 +9,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import time
 import random
+import pandas as pd
+
 
 title = input("input title : ") # 종목 명 입력
 
@@ -59,41 +62,66 @@ trs = soup.select('tr > td')
 cat = ['date', 'open', 'high', 'low', 'close', 'vol', 'marcket cap']
 # 7개 - date, open, high, low, close, vol, marcket cap
 
+# dataframe을 위한 형식 - dictionary 이용
+data = {
+  'date' : [],
+  'open' : [],
+  'high' : [],
+  'low' : [],
+  'close' : [],
+  'vol' : [],
+  'marcket cap' : []
+}
+
+indexName = list()
+
+n = 0
+for i in trs:
+  if n%7 == 0:
+    # indexName.append(i.string)
+    data['date'].append(i.string)
+    # indexName.append(n)
+  else:
+    data[cat[n%7]].append(i.string)
+  n+=1
+
+frame = pd.DataFrame(data)
+print(frame)
 # 파일 저장 경로, 파일 이름
-path = 'C:/Users/epicl/Documents/GitHub/mongoDB_test/config'
-file_name = f'{title}.csv'
+# path = 'C:/Users/epicl/Documents/GitHub/mongoDB_test/config'
+# file_name = f'{title}.csv'
 
-# 설정한 경로에 csv file export
-with open(os.path.join(path, file_name), 'w', newline='', encoding='utf-8-sig') as output:
-  csvout = csv.DictWriter(output, ['date', 'open', 'high', 'low', 'close', 'vol', 'marcket cap'])
-  csvout.writeheader()
-  tn = 0
-  for i in trs:
-    if tn%7 == 0:
-      if tn == 0: # 첫 값
-        temp = dict()
-      elif temp['date'] != i.string:
-        wr = csv.writer(output)
-        wr.writerow(
-          [
-            temp['date'],
-            temp['open'],
-            temp['high'],
-            temp['low'],
-            temp['close'],
-            temp['vol'],
-            temp['marcket cap']
-          ])
-        temp = dict()
-        print(f"{tn} push")
-      temp[cat[0]] = i.string
-    else:
-      temp[cat[tn%7]] = i.string
-    tn += 1
+# # 설정한 경로에 csv file export
+# with open(os.path.join(path, file_name), 'w', newline='', encoding='utf-8-sig') as output:
+#   csvout = csv.DictWriter(output, ['date', 'open', 'high', 'low', 'close', 'vol', 'marcket cap'])
+#   csvout.writeheader()
+#   tn = 0
+#   for i in trs:
+#     if tn%7 == 0:
+#       if tn == 0: # 첫 값
+#         temp = dict()
+#       elif temp['date'] != i.string:
+#         wr = csv.writer(output)
+#         wr.writerow(
+#           [
+#             temp['date'],
+#             temp['open'],
+#             temp['high'],
+#             temp['low'],
+#             temp['close'],
+#             temp['vol'],
+#             temp['marcket cap']
+#           ])
+#         temp = dict()
+#         print(f"{tn} push")
+#       temp[cat[0]] = i.string
+#     else:
+#       temp[cat[tn%7]] = i.string
+#     tn += 1
 
 
 
-print('finish export!');
+# print('finish export!');
 
 # tn = 0
 # for i in trs:
