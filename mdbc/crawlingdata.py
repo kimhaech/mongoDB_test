@@ -74,7 +74,5 @@ for i in trs:
 frame = pd.DataFrame(data)
 print(frame)
 
-
-
 # 작업 완료 후 driver 종료
 driver.quit()

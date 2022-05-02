@@ -54,7 +54,7 @@ class coin_crawl_his:
         scroll_loaction = self.driver.execute_script("return document.body.scrollHeight")
 
   # 정보가 있는 태그에서 값을 가져옴
-  def get_tag(self):
+  def get_data(self):
     html = self.driver.page_source # 모든 값을 다 불러온 이후의 소스 가져오기
     soup = BeautifulSoup(html, 'lxml')
 
@@ -83,6 +83,8 @@ class coin_crawl_his:
       n+=1
     self.frame = pd.DataFrame(data)
 
-  def get_data(self):
-    self.driver.quit()
     return self.frame
+
+  # driver 종료
+  def quit_driver(self):
+    self.driver.quit()
