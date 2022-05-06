@@ -1,16 +1,8 @@
 from encodings import utf_8
 from operator import index
-from turtle import title
-from urllib import response
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-import time
-import re
-import datetime
-import requests
 from bs4 import BeautifulSoup
-
-from genericpath import exists
 from pymongo import MongoClient
 
 # 로컬 호스트 클라이언트 불러오기

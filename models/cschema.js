@@ -10,4 +10,5 @@ const coin_data_Schema = new mongoose.Schema({
   marcket_cap: { type: String },
 })
 
-module.exports = mongoose.model('Coin', coin_data_Schema)
+const Coin = mongoose.model('Coin', coin_data_Schema)
+export default Coin
