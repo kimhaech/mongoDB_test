@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 mongoose
-  .connect('mongodb://localhost:27017/testdb', {
+  .connect('mongodb://localhost:27017/coin', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -11,7 +11,7 @@ mongoose
 // Schema -> Model -> Document
 // 스키마 정의
 const coinSchema = new mongoose.Schema({
-  date: { type: Date },
+  date: { type: String },
   open: { type: String },
   high: { type: String },
   low: { type: String },
@@ -20,7 +20,7 @@ const coinSchema = new mongoose.Schema({
   marcket_cap: { type: String },
 })
 
-const Coin = mongoose.model('ctestdata', coinSchema)
+const Coin = mongoose.model('costs', coinSchema)
 
 // const bitcoin1 = new Coin({
 //   open: '2000202',
@@ -39,7 +39,7 @@ const Coin = mongoose.model('ctestdata', coinSchema)
 //     console.error(err)
 //   })
 
-Coin.find({ open: '2000202' }, 'low close', function (err, docs) {
+Coin.find({},'high', function (err, docs) {
   if (err) {
     console.log(err)
   } else {
