@@ -39,10 +39,14 @@ const Coin = mongoose.model('costs', coinSchema)
 //     console.error(err)
 //   })
 
-Coin.find({},'high', function (err, docs) {
+const fields = {_id:0, greed_fear_score:0, date:0, Open:0, Low:0, Close:0, Volume:0}
+
+Coin.find({},fields,function (err, docs) {
   if (err) {
     console.log(err)
   } else {
-    console.log('return : ', docs)
+    for(i=0; i<docs.length; i++){
+      console.log(docs[i].toObject().High)
+    }
   }
 })
