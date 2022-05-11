@@ -41,7 +41,7 @@ const Coin = mongoose.model('costs2', coinSchema)
 
 const fields = {_id:0, greed_fear_score:0, date:0, Open:0, Low:0, Close:0, Volume:0}
 
-Coin.find({High: { $gte: 50000}},fields,function (err, docs) {
+Coin.find({High: {$gte: 50000}},fields,function (err, docs) {
   if (err) {
     console.log(err)
   } else {
