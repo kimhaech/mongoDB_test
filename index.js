@@ -43,34 +43,48 @@ Coin.find({}, function (err, docs) {
   if (err) {
     console.log(err)
   } else {
-    today = get_today()
+    // today = get_today()
+    today = [2022,3,24]
     console.log('today : ' + today)
 
     const start_year = 2022
     const start_month = 3
     const start_day = 2
     const end_year = 2022
-    const end_month = 2
-    const end_day = 2
+    const end_month = 3
+    const end_day = 24
 
     // 각 1일전, 일주일 전, 10일 전
-    const a_day_ago = get_beforedate(today[0], today[1], today[2], 1)
+    // const a_day_ago = get_beforedate(today[0], today[1], today[2], 1)
+    // const a_week_ago = get_beforedate(today[0], today[1], today[2], 7)
+    // const ten_days_ago = get_beforedate(today[0], today[1], today[2], 10)
+
+    // console.log(a_day_ago)
+    // console.log(a_week_ago)
+    // console.log(ten_days_ago)
+
     const a_week_ago = get_beforedate(today[0], today[1], today[2], 7)
-    const ten_days_ago = get_beforedate(today[0], today[1], today[2], 10)
+    const two_weeks_ago = get_beforedate(today[0], today[1], today[2], 14)
+    const three_weeks_ago = get_beforedate(today[0], today[1], today[2], 21)
+    const a_month_ago = get_beforedate(today[0], today[1], today[2], 30)
 
-    console.log(a_day_ago)
-    console.log(a_week_ago)
-    console.log(ten_days_ago)
-
-    get_period_data(
-      start_year,
-      start_month,
-      start_day,
-      end_year,
-      end_month,
-      end_day,
-      docs
-    )
+    console.log('1주 전')
+    get_period_data(a_week_ago[0],a_week_ago[1],a_week_ago[2],end_year,end_month,end_day,docs)
+    console.log('2주 전')
+    get_period_data(two_weeks_ago[0],two_weeks_ago[1],two_weeks_ago[2],end_year,end_month,end_day,docs)
+    console.log('3주 전')
+    get_period_data(three_weeks_ago[0],three_weeks_ago[1],three_weeks_ago[2],end_year,end_month,end_day,docs)
+    console.log('한달 전')
+    get_period_data(a_month_ago[0],a_month_ago[1],a_month_ago[2],end_year,end_month,end_day,docs)
+    // get_period_data(
+    //   start_year,
+    //   start_month,
+    //   start_day,
+    //   end_year,
+    //   end_month,
+    //   end_day,
+    //   docs
+    // )
   }
 })
 
