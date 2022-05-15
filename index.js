@@ -32,22 +32,10 @@ const calendar = {
 // Coin의 모델 costs
 const Coin = mongoose.model('costs', coinSchema)
 
-// const fields = {
-//   _id: 0,
-//   Open: 0,
-//   Low: 0,
-//   Close: 0,
-//   Volume: 0,
-// }
-
 Coin.find({}, function (err, docs) {
   if (err) {
     console.log(err)
   } else {
-    // docs -> find 결과값
-    // for (i = 0; i < docs.length; i++) {
-    //   console.log(docs[i].toObject().date + ' : ' + docs[i].toObject().High)
-    // }
     today = get_today()
     console.log('today : ' + today)
 
@@ -160,6 +148,7 @@ function get_period_data(
     }
   }
 }
+
 
 // 오늘 날짜를 반환
 function get_today() {
