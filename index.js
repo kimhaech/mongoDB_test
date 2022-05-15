@@ -160,49 +160,6 @@ function get_period_data(
     }
   }
 }
-// function get_period_data(
-//   start_year,
-//   start_month,
-//   start_day,
-//   end_year,
-//   end_month,
-//   end_day,
-//   docs
-// ) {
-//   for (i = 0; i < docs.length; i++) {
-//     for (
-//       s_year = start_year, s_month = start_month, s_day = start_day;
-//       s_year <= end_year && s_month <= end_month && s_day <= end_day;
-//       s_day++
-//     ) {
-//       let td = ''
-//       if (s_month < 10) {
-//         td = s_year.toString().concat('-0', s_month.toString())
-//       } else {
-//         td = s_year.toString().concat('-', s_month.toString())
-//       }
-
-//       if (s_day < 10) {
-//         td = td.concat('-0', s_day.toString())
-//       } else {
-//         td = td.concat('-', s_day.toString())
-//       }
-//       if (s_day === calendar[s_month]) {
-//         s_day = 1
-//         s_month++
-//       }
-
-//       if (s_month === 13) {
-//         s_month = 1
-//         s_year++
-//       }
-
-//       if (docs[i].toObject().date === td) {
-//         console.log(docs[i].toObject().date + ' : ' + docs[i].toObject().High)
-//       }
-//     }
-//   }
-// }
 
 // 오늘 날짜를 반환
 function get_today() {
