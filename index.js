@@ -1,12 +1,19 @@
 const mongoose = require('mongoose')
 
 mongoose
-  .connect('mongodb://localhost:27017/coin', {
+  .connect('mongodb+srv://dongle:tkfkdgksek1@cluster0.fqkie.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err))
+// mongoose
+//   .connect('mongodb://localhost:27017/coin', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log('MongoDB Connected...'))
+//   .catch((err) => console.log(err))
 
 // Schema -> Model -> Document
 // 스키마 정의
@@ -30,7 +37,7 @@ const calendar = {
   12: 31,
 }
 // Coin의 모델 costs
-const Coin = mongoose.model('costs', coinSchema)
+const Coin = mongoose.model('temps', coinSchema)
 
 Coin.find({}, function (err, docs) {
   if (err) {
@@ -43,7 +50,7 @@ Coin.find({}, function (err, docs) {
     const start_month = 3
     const start_day = 2
     const end_year = 2022
-    const end_month = 3
+    const end_month = 2
     const end_day = 2
 
     // 각 1일전, 일주일 전, 10일 전
