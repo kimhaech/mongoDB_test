@@ -1,10 +1,13 @@
 const mongoose = require('mongoose')
 
 mongoose
-  .connect('mongodb+srv://dongle:tkfkdgksek1@cluster0.fqkie.mongodb.net/test?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    'mongodb+srv://dongle:tkfkdgksek1@cluster0.fqkie.mongodb.net/test?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err))
 // mongoose
@@ -44,7 +47,7 @@ Coin.find({}, function (err, docs) {
     console.log(err)
   } else {
     // today = get_today()
-    today = [2022,3,24]
+    let today = [2022, 3, 24]
     console.log('today : ' + today)
 
     const start_year = 2022
@@ -69,13 +72,45 @@ Coin.find({}, function (err, docs) {
     const a_month_ago = get_beforedate(today[0], today[1], today[2], 30)
 
     console.log('1주 전')
-    get_period_data(a_week_ago[0],a_week_ago[1],a_week_ago[2],end_year,end_month,end_day,docs)
+    get_period_data(
+      a_week_ago[0],
+      a_week_ago[1],
+      a_week_ago[2],
+      end_year,
+      end_month,
+      end_day,
+      docs
+    )
     console.log('2주 전')
-    get_period_data(two_weeks_ago[0],two_weeks_ago[1],two_weeks_ago[2],end_year,end_month,end_day,docs)
+    get_period_data(
+      two_weeks_ago[0],
+      two_weeks_ago[1],
+      two_weeks_ago[2],
+      end_year,
+      end_month,
+      end_day,
+      docs
+    )
     console.log('3주 전')
-    get_period_data(three_weeks_ago[0],three_weeks_ago[1],three_weeks_ago[2],end_year,end_month,end_day,docs)
+    get_period_data(
+      three_weeks_ago[0],
+      three_weeks_ago[1],
+      three_weeks_ago[2],
+      end_year,
+      end_month,
+      end_day,
+      docs
+    )
     console.log('한달 전')
-    get_period_data(a_month_ago[0],a_month_ago[1],a_month_ago[2],end_year,end_month,end_day,docs)
+    get_period_data(
+      a_month_ago[0],
+      a_month_ago[1],
+      a_month_ago[2],
+      end_year,
+      end_month,
+      end_day,
+      docs
+    )
     // get_period_data(
     //   start_year,
     //   start_month,
@@ -169,7 +204,6 @@ function get_period_data(
     }
   }
 }
-
 
 // 오늘 날짜를 반환
 function get_today() {
